@@ -1,0 +1,146 @@
+# Copyright (c) 2010, Code Aurora Forum. All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions are
+# met:
+#     * Redistributions of source code must retain the above copyright
+#       notice, this list of conditions and the following disclaimer.
+#     * Redistributions in binary form must reproduce the above
+#       copyright notice, this list of conditions and the following
+#       disclaimer in the documentation and/or other materials provided
+#       with the distribution.
+#     * Neither the name of Code Aurora Forum, Inc. nor the names of its
+#       contributors may be used to endorse or promote products derived
+#       from this software without specific prior written permission.
+#
+# THIS SOFTWARE IS PROVIDED "AS IS" AND ANY EXPRESS OR IMPLIED
+# WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT
+# ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS
+# BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+# CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+# SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
+# BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+# WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+# OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
+# IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+#
+#
+
+on init
+    export EXTERNAL_STORAGE /storage/sdcard0
+
+# create mountpoints for storage
+    mkdir /storage 0555 system system
+    mkdir /storage/sdcard0 0000 system system
+    mkdir /storage/sdcard1 0000 system system
+    symlink /storage/sdcard0 /sdcard
+    symlink /storage/sdcard1 /external_sd
+
+#Crypto Keyfile
+    setprop ro.crypto.keyfile.userdata /dev/block/mmcblk0p19
+
+# on emmc mount the partition containing firmware
+on emmc-fs
+    wait /dev/block/mmcblk0p12
+    mount ext4 /dev/block/mmcblk0p12 /system rw barrier=1
+    wait /dev/block/mmcblk0p13
+    exec /system/bin/e2fsck -p /dev/block/mmcblk0p13
+    mount ext4 /dev/block/mmcblk0p13 /data nosuid nodev barrier=1 noauto_da_alloc
+    mount ext4 /dev/block/mmcblk0p14 /persist nosuid nodev barrier=1
+    mount ext4 /dev/block/mmcblk0p15 /cache nosuid nodev barrier=1
+    mount ext4 /dev/block/mmcblk0p20 /fota nosuid nodev barrier=1
+    mount ext4 /dev/block/mmcblk0p21 /rfcal nosuid nodev barrier=1
+
+   mkdir /tombstones 0771 system system
+   mount ext4 /dev/block/mmcblk0p16 /tombstones nosuid nodev barrier=1
+   mkdir /tombstones/modem 0771 shell system
+   mkdir /tombstones/mdm 0771 system system
+   mkdir /tombstones/lpass 0771 system system
+   mkdir /firmware 0771 system system
+   wait /dev/block/mmcblk0p1
+   mount vfat /dev/block/mmcblk0p1 /firmware ro shortname=lower
+   exec /system/bin/sh /system/etc/init.qcom.modem_links.sh
+   
+# KTT_UPDATE : KAF v.1.3.0  Permissions for KAF [
+    mkdir /data/ktcontents 0770 system ktapp
+    chown ktdbs ktdbs /system/etc/ktdbs 
+    chmod 0550 /system/etc/ktdbs 
+    chown ktdbs ktdbs /system/etc/ktdbs/preload_contentsbox.db 
+    chmod 0440 /system/etc/ktdbs/preload_contentsbox.db
+    chown system ktapp /data/ktcontents
+    chmod 0770 /data/ktcontents    
+# KTT_UPDATE : KAF v.1.3.0  Permissions for KAF ]
+
+on post-fs
+service kickstart /system/bin/qcks l
+    oneshot
+    disabled
+
+# Start kickstart if csfb or svlte2a target
+on property:ro.baseband=csfb
+    wait /dev/ttyHSL1
+    mkdir /data/qcks 0770 system system
+    start kickstart
+
+on property:ro.baseband=svlte2a
+    wait /dev/ttyHSL1
+    mkdir /data/qcks 0770 system system
+    start kickstart
+
+service dcvsd0 /system/bin/dcvsd -c 0 -f /data/misc/dcvsd/dcvsd0.conf
+    user root
+    disabled
+
+service dcvsd1 /system/bin/dcvsd -c 1 -f /data/misc/dcvsd/dcvsd1.conf
+    user root
+    disabled
+
+service mpdecision /system/bin/mpdecision --no_sleep --avg_comp
+    user root
+    disabled
+
+#### KTTECH Motor daemon => CONFIG_KTTECH_MOTOR_MDH1_VIBETONZ
+service immvibed /system/bin/immvibed
+    class main
+    disabled
+    oneshot    
+
+on property:init.svc.bootanim=running
+    start immvibed
+
+service qrngd /system/bin/qrngd -f
+    user root
+
+on property:ro.baseband=svlte2a
+   setprop ro.config.ehrpd true
+   setprop ro.ril.svlte1x true
+
+on property:sys.radio.shutdown=true
+   exec /system/bin/sh /system/etc/init.qcom.efs.sync.sh
+
+on post-fs-data
+# KTTECH Touch screen
+    chown system system /sys/class/i2c-dev/i2c-9/device/9-0048/enable_key_wake
+    chown system system /sys/class/i2c-dev/i2c-9/device/9-0048/input_mode 
+
+# KTTech Sensor [
+    mkdir /rfcal/sensor
+    chown system system /rfcal/sensor
+    chmod 755 /rfcal/sensor
+# KTTech Sensor ]
+
+# KTTech Sound {
+    mkdir /rfcal/sound
+    chown system system /rfcal/sound
+    chmod 755 /rfcal/sound
+    chmod 777 /rfcal/sound/config.dat
+# KTTech Sound }
+
+on boot
+    setprop ro.nfc.port "I2C"
+    chmod 0600 /dev/pn544
+    chown nfc nfc /dev/pn544
+
+# KT Tech Start time daemon explicitly in adanvace
+    start time_daemon

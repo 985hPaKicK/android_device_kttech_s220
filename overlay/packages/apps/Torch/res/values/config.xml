@@ -1,0 +1,3 @@
+<resources>
+    <string name="flashDevice">/sys/class/leds/camera:flash0/brightness</string>
+</resources>

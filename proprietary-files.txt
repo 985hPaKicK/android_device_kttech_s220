@@ -1,0 +1,78 @@
+# Executable files
+bin/mpdecision
+bin/netmgrd
+bin/qmuxd
+bin/rmt_storage
+bin/thermald
+bin/rild
+
+# Audio
+lib/libacdbloader.so
+lib/libacdbmapper.so
+lib/libaudcal.so
+lib/libaudioalsa.so
+
+# Camera
+lib/hw/camera.msm8660.so
+lib/libgemini.so
+lib/libidl.so
+lib/libmmipl.so
+lib/libmmjpeg.so
+lib/liboemcamera.so
+lib/libmmmpo.so
+lib/libmmstereo.so
+lib/libmmparser.so
+lib/libmmosal.so
+lib/libDivxDrm.so
+
+# Chromatix
+lib/libchromatix_imx074_default_video.so
+lib/libchromatix_imx074_preview.so
+lib/libchromatix_imx074_zsl.so
+lib/libchromatix_mt9e013_ar.so
+lib/libchromatix_mt9e013_default_video.so
+lib/libchromatix_mt9e013_preview.so
+lib/libchromatix_mt9e013_video_hfr.so
+
+# Misc libraries
+lib/libmm-color-convertor.so
+
+# Bluetooth
+bin/BCM4329B1_TESTONLY.hcd
+
+# Thermal
+lib/libthermal_mitigation.so
+
+# Radio
+lib/libril-qc-qmi-1.so
+lib/libril-qcril-hook-oem.so
+lib/libqmi.so
+lib/libril.so
+lib/libdiag.so
+lib/libdsutils.so
+lib/libqmiservices.so
+lib/libidl.so
+lib/libdsi_netctrl.so
+lib/libqdp.so
+lib/libnetmgr.so
+lib/libtime_genoff.so
+lib/liboncrpc.so
+lib/libnv.so
+lib/libdsm.so
+lib/libqueue.so
+lib/libtime_remote_atom.so
+lib/libqdi.so
+
+# Sensors
+lib/hw/sensors.qcom.so
+lib/libalps_hal.so
+lib/libacdapi_azi
+
+# Lights
+lib/hw/lights.msm8660.so
+
+# Webkit
+lib/libv8.so
+
+# NFC
+lib/hw/nfc.default.so

@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+<DeviceInfo>
+	<Display>
+		<MainLCD>
+			<ResolutionWidth>480</ResolutionWidth>
+			<ResolutionHeight>800</ResolutionHeight>
+			<ColorDepth>24</ColorDepth>
+		</MainLCD>
+		<SubLCD>
+			<ResolutionWidth>-</ResolutionWidth>
+			<ResolutionHeight>-</ResolutionHeight>
+			<ColorDepth>-</ColorDepth>
+		</SubLCD>
+	</Display>
+	<Graphic>
+		<ImageFormat>
+			<Format>JPEG</Format>
+			<Format>PNG</Format>
+			<Format>BMP</Format>
+		</ImageFormat> 
+	</Graphic>
+	<Audio>
+		<SoundCodec>
+			<Format>AAC LC/LTP</Format>
+			<Format>HE-AACv1</Format>
+			<Format>HE-AACv2</Format>
+			<Format>AMR-NB</Format>
+		<Format>MP3</Format>
+			<Format>AC3</Format>
+		<Format>MIDI</Format>
+			<Format>OGG</Format>
+			<Format>WAVE</Format>
+			<Format>AK3G</Format>
+		</SoundCodec>
+		<VODCodec>
+			<Format>MPEG-4 SP/ASP</Format>
+			<Format>H.263</Format>
+			<Format>H.264</Format>
+			<Format>DivX</Format>
+			<Format>Xvid</Format>
+			<Format>K3G</Format>
+		</VODCodec>
+		<AODCodec>
+			<Format>-</Format>
+		</AODCodec>
+	</Audio>
+	<Video>
+		<MSS>1080p</MSS>
+		<MBR>MPEG4=14000|H.263=6000|H.264=14000</MBR>
+		<FPS>MPEG4=30|H.264=30</FPS>
+		<SVC>TA</SVC>
+</Video>
+<OemInfo>
+		<Manufacturer>KTT</Manufacturer>
+		<ModelName>KM-S220</ModelName>	
+		<DeviceType>HSUPA</DeviceType>	
+	</OemInfo>
+	<Container>
+		<FileType>3GPP</FileType>
+	</Container>
+	<AdditionalDevice>
+		<Module>DMB</Module>
+		<Module>Bluetooth</Module>
+		<Module>Camera</Module>
+		<Module>FrontCamera</Module>
+	</AdditionalDevice>
+	<AdditionalService>
+		<IWLAN>N</IWLAN>
+		<NFC>Y</NFC>
+		<KTMMS>Y</KTMMS>
+	</AdditionalService>
+	<SensorList>
+		<Sensor>ACCELEROMETER</Sensor>
+		<Sensor>LIGHT</Sensor>
+		<Sensor>MAGNETIC_FIELD</Sensor>
+		<Sensor>ORIENTATION</Sensor>
+		<Sensor>PROXIMITY</Sensor>
+</SensorList>
+<HumanInterface>
+		<Touch>Y</Touch>
+	</HumanInterface>
+<DataSync>
+		<Mode>0</Mode>
+	</DataSync>
+	<EAP-AKA>
+		<Support>Y</Support>
+		<ContentsProvider>Y</ContentsProvider>
+	</EAP-AKA>
+	<Connectivity>
+		<Module>WCDMA</Module>
+		<Module>WIFI</Module>
+	</Connectivity>
+	<ExternalStorage>
+		<Volume>/external_sd</Volume>
+	</ExternalStorage>
+	<CodecAttribute>
+		<H.264DEC>OMX.qcom.video.decoder:kRequiresAllocateBufferOnInputPorts|kRequiresAllocateBufferOnOutputPorts|kDefersOutputBufferAllocation|kDoesNotRequireMemcpyOnOutputPort</H.264DEC>
+		<MPEG4DEC>OMX.qcom.video.decoder:kRequiresAllocateBufferOnInputPorts|kRequiresAllocateBufferOnOutputPorts|kDefersOutputBufferAllocation|kDoesNotRequireMemcpyOnOutputPort</MPEG4DEC>
+		<AACDEC>-</AACDEC>
+	</CodecAttribute>
+</DeviceInfo>
