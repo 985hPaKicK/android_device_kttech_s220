@@ -71,8 +71,5 @@ lib/libacdapi_azi
 # Lights
 lib/hw/lights.msm8660.so
 
-# Webkit
-lib/libv8.so
-
 # NFC
 lib/hw/nfc.default.so
