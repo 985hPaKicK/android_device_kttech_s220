@@ -38,8 +38,9 @@
     <!-- Minimum screen brightness allowed by the power manager. -->
     <integer name="config_screenBrightnessDim">11</integer>
 
-    <!-- Boolean indicating whether Softap requires reloading AP firmware -->
-    <bool name="config_wifiApFirmwareReload">false</bool>
+    <!-- Boolean indicating whether the start command should be called on the wireless interface
+         when starting the SoftAp -->
+    <bool name="config_wifiApStartInterface">true</bool>
 
     <!-- XXXXX NOTE THE FOLLOWING RESOURCES USE THE WRONG NAMING CONVENTION.
          Please don't copy them, copy anything else. -->
