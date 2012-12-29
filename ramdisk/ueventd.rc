@@ -186,3 +186,5 @@
 /sys/devices/virtual/smdpkt/smdcntl*       open_timeout   0664 radio radio
 #permissions for sensors
 /dev/msm_dsps             0660  system       system
+#permissions for tspdrv
+/dev/tspdrv               0660  system       system
