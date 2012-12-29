@@ -86,6 +86,10 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/bcmdhd.cal:system/etc/wifi/bcmdhd.cal \
     $(LOCAL_PATH)/prebuilt/wlan.ko:system/lib/modules/wlan.ko
 
+# Init.d
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/prebuilt/install-recovery.sh:/system/etc/install-recovery.sh \
+
 # Vold
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/vold.fstab:system/etc/vold.fstab
